@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+        <head>
+            <title>CS 775/875 - Sample Webpage Using CSS</title>
+                <style type="text/css">
+                        body    {font-family:"Arial";}
+                        h1              {text-align:center;}
+                        table   {border-style:solid;
+                                         border-width:2px;
+                                         border-color:black;
+                                         border-collapse:collapse;}
+                        th,td   {border-style:solid;
+                                     border-color:black;
+                                         border-width:2px;
+                                         padding:10px;}
+                        a               {color:green;}
+                        p#last  {color:red;
+                                 text-decoration:blink;}
+
+                </style>
+        </head>
+        <body>
+                <h1> Sample Webpage - Using HTML and CSS </h1>
+                <p> This webpage is designed to give a brief overview of the HTML
+                        language and how to structure a basic webpage. </p>
+                <p> For a complete reference, I suggest that you take advantage of the
+                        following links that provide more robust definitions.</p>
+                <ul>
+                        <li> <a href="http://www.w3schools.com">W3 Schools - Tutorials on HTML/CSS </a> </li>
+                        <li> <a href="http://www.library.unh.edu/">HTML/CSS Textbook available through UNH library</a> </li>
+                        <li> <a href="http://www.w3.org/TR/CSS2/">Official CSS Specification</a></li>
+                        <li> <a href="http://www.w3.org/TR/html5/">Official HTML Specification</a></li>
+                </ul>
+                <h2> Tables will be very useful for displaying database output </h2>
+                <p> There are three tags that you need for a table: "table", "tr", "td". You can also use "th" for header cells.</p>
+                <table border="1">
+                        <tr>
+                                <th> Column #1 </th>
+                                <th> Column #2 </th>
+                                <th> Column #3 </th>
+                        </tr>
+                        <tr>
+                                <td> First </td>
+                                <td> Data </td>
+                                <td> Row </td>
+                        </tr>
+                        <tr>
+                                <td> Second </td>
+                                <td> Data </td>
+                                <td> Row </td>
+                        </tr>
+                </table>
+                <p id="last"> We can use CSS to control every aspect of the presentation of a webpage.</p>
+        </body>
+</html>

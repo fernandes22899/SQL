@@ -1,0 +1,57 @@
+1. 
+SELECT r.ssn,name,code,classdate
+FROM staff s
+LEFT JOIN registrations r
+ON s.ssn = r.ssn
+ORDER BY name ASC;
+
+SELECT r.ssn,name,code,classdate FROM staff s LEFT JOIN registrations r ON s.ssn = r.ssn ORDER BY name ASC;
+
+2. 
+SELECT code,classdate,ssn,name
+FROM offerings o
+LEFT JOIN staff
+ON o.code = code
+WHERE code IN
+(SELECT code
+FROM schedule s 
+LEFT JOIN staff f
+ON s.ssn = f.ssn)
+ORDER BY code ASC;
+
+SELECT code,classdate,ssn,name FROM offerings o LEFT JOIN staff ON o.code = code WHERE code IN (SELECT code FROM schedule s LEFT JOIN staff f ON s.ssn = f.ssn) ORDER BY code ASC;
+
+3.
+SELECT school,course,level
+FROM courses
+WHERE code NOT IN
+(SELECT code
+FROM registrations
+WHERE ssn IN
+(SELECT ssn
+FROM students
+WHERE ssn NOT IN
+(SELECT ssn
+FROM staff)));
+
+SELECT school,course,level FROM courses WHERE code NOT IN (SELECT code FROM registrations WHERE ssn IN (SELECT ssn FROM students WHERE ssn NOT IN (SELECT ssn FROM staff)));
+
+4.
+SELECT ssn,school,course
+FROM courses
+LEFT JOIN registration
+ON courses.code = registration.code
+WHERE ssn IN
+(SELECT ssn
+FROM students);
+
+
+5.
+
+
+6.
+SELECT ssn
+FROM students
+WHERE ssn NOT IN
+(SELECT ssn
+FROM staff);

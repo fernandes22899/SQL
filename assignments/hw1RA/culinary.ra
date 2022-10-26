@@ -1,0 +1,163 @@
+/*
+* -- CS775/875
+* -- Assignment #1
+* -- Database - SQL/RA Source File
+ */
+
+
+\sqlexec_{DROP TABLE IF EXISTS registrations};
+\sqlexec_{DROP TABLE IF EXISTS schedule};
+\sqlexec_{DROP TABLE IF EXISTS students};
+\sqlexec_{DROP TABLE IF EXISTS staff};
+\sqlexec_{DROP TABLE IF EXISTS offerings};
+\sqlexec_{DROP TABLE IF EXISTS courses};
+
+
+\sqlexec_{
+CREATE TABLE courses
+(
+  
+   code                 VARCHAR(5),
+   school		VARCHAR(35),
+   course		VARCHAR(35),
+   level		INT,
+   description	TEXT,	
+   credits		INT,
+   
+   PRIMARY KEY (code)
+)};
+
+
+\sqlexec_{INSERT INTO courses VALUES ('cs1', 'Charlie''s Cooking School', 'Sausages', 1, 'Hot Dogs', 3)};
+\sqlexec_{INSERT INTO courses VALUES ('cs2', 'Charlie''s Cooking School', 'Sausages', 2, 'Bratwurst', 4)};
+\sqlexec_{INSERT INTO courses VALUES ('cs3', 'Charlie''s Cooking School', 'Sausages', 3, 'Chorizo', 5)};
+\sqlexec_{INSERT INTO courses VALUES ('cs4', 'Charlie''s Cooking School', 'Sausages', 4, 'Kielbasa', 3)};
+\sqlexec_{INSERT INTO courses VALUES ('cs5', 'Charlie''s Cooking School', 'Sausages', 5, 'Andouille', 2)};
+\sqlexec_{INSERT INTO courses VALUES ('fc1', 'French Academy', 'Croissants', 1, 'A terminal course in Croissant Construction', 3)};
+\sqlexec_{INSERT INTO courses VALUES ('hb1', 'Hans''s Haute Cuisine', 'Bavarian', 1, 'Pretzels and Sauerkraut', 3)};
+\sqlexec_{INSERT INTO courses VALUES ('jp1', 'Jacque''s Culinary Adventure', 'Pastries', 1, 'Croissants', 4)};
+\sqlexec_{INSERT INTO courses VALUES ('jp2', 'Jacque''s Culinary Adventure', 'Pastries', 2, 'Macarons', 4)};
+\sqlexec_{INSERT INTO courses VALUES ('ln1', 'Lorenzo''s Lean Cuisine', 'Napoli', 1, 'Pasta and Gnocchi', 4)};
+
+\sqlexec_{
+CREATE TABLE offerings
+(
+   code                 VARCHAR(5),
+   classdate	DATE,	
+   location		VARCHAR(35),
+
+   PRIMARY KEY (code, classdate),
+   FOREIGN KEY (code) REFERENCES courses (code)
+)};
+
+\sqlexec_{INSERT INTO offerings VALUES ('cs1', '2016-01-01', 'Boston')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs1', '2016-01-10', 'Berlin')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs2', '2016-01-02', 'New York')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs2', '2016-01-11', 'Toronto')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs3', '2016-01-03', 'Chicago')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs3', '2016-01-12', 'Berlin')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs4', '2016-01-04', 'Seattle')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs4', '2016-01-13', 'Hamburg')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs5', '2016-01-05', 'San Diego')};
+\sqlexec_{INSERT INTO offerings VALUES ('cs5', '2016-01-14', 'Geneva')};
+\sqlexec_{INSERT INTO offerings VALUES ('fc1', '2015-11-19', 'Dijon')};
+\sqlexec_{INSERT INTO offerings VALUES ('hb1', '2016-01-08', 'Berlin')};
+\sqlexec_{INSERT INTO offerings VALUES ('hb1', '2016-01-17', 'Houston')};
+\sqlexec_{INSERT INTO offerings VALUES ('jp1', '2016-01-06', 'Paris')};
+\sqlexec_{INSERT INTO offerings VALUES ('jp1', '2016-01-15', 'London')};
+\sqlexec_{INSERT INTO offerings VALUES ('jp2', '2016-01-07', 'Nantes')};
+\sqlexec_{INSERT INTO offerings VALUES ('jp2', '2016-01-16', 'Dublin')};
+\sqlexec_{INSERT INTO offerings VALUES ('ln1', '2016-01-09', 'Naples')};
+\sqlexec_{INSERT INTO offerings VALUES ('ln1', '2016-01-18', 'Rome')};
+\sqlexec_{INSERT INTO offerings VALUES ('jp2', '2016-02-16', 'Dublin')};
+\sqlexec_{INSERT INTO offerings VALUES ('ln1', '2016-02-09', 'Naples')};
+
+
+\sqlexec_{
+CREATE TABLE students 
+(
+   ssn			INT,
+   sname			VARCHAR(30),
+   totalcredits	INT,
+
+   PRIMARY KEY (ssn)
+)};
+
+\sqlexec_{INSERT INTO students VALUES (1111, 'joe', 15)};
+\sqlexec_{INSERT INTO students VALUES (2222, 'mary', 25)};
+\sqlexec_{INSERT INTO students VALUES (3333, 'steve', 35)};
+\sqlexec_{INSERT INTO students VALUES (8888, 'tommy', 23)};
+
+
+\sqlexec_{
+CREATE TABLE staff
+(
+   ssn		INT,
+   name		VARCHAR(30),
+   job		VARCHAR(20),
+
+
+   PRIMARY KEY (ssn)
+)};
+
+\sqlexec_{INSERT INTO staff VALUES (1111, 'joe', 15)};
+\sqlexec_{INSERT INTO staff VALUES (5555, 'alice', 'assistant')};
+\sqlexec_{INSERT INTO staff VALUES (7777, 'marcus', 'assistant')};
+
+
+\sqlexec_{
+CREATE TABLE registrations
+(
+   ssn			INT,
+   code                 VARCHAR(5),
+   classdate	DATE,	
+   balance		INT,
+
+   PRIMARY KEY (ssn, code, classdate),
+   FOREIGN KEY (ssn) REFERENCES students (ssn),
+   FOREIGN KEY (code, classdate) REFERENCES offerings (code, classdate)
+)};
+
+\sqlexec_{INSERT INTO registrations VALUES (1111, 'cs1', '2016-01-10', 170)};
+\sqlexec_{INSERT INTO registrations VALUES (1111, 'cs2', '2016-01-11', 800)};
+\sqlexec_{INSERT INTO registrations VALUES (1111, 'cs3', '2016-01-12', 240)};
+\sqlexec_{INSERT INTO registrations VALUES (1111, 'cs5', '2016-01-14', 1000)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'cs1', '2016-01-01', 70)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'cs2', '2016-01-02', 210)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'cs3', '2016-01-03', NULL)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'cs4', '2016-01-04', 1234)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'fc1', '2015-11-19', 0)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'jp1', '2016-01-15', 0)};
+\sqlexec_{INSERT INTO registrations VALUES (2222, 'jp2', '2016-01-16', 0)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'cs1', '2016-01-01', 9)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'cs3', '2016-01-03', 2000)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'cs5', '2016-01-05', 5)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'cs5', '2016-01-14', 8)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'hb1', '2016-01-08', 8)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'hb1', '2016-01-17', 0)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'jp1', '2016-01-06', NULL)};
+\sqlexec_{INSERT INTO registrations VALUES (3333, 'jp2', '2016-01-07', 11)};
+\sqlexec_{INSERT INTO registrations VALUES (8888, 'hb1', '2016-01-08', 8)};
+
+
+\sqlexec_{
+CREATE TABLE schedule
+(
+   ssn			INT,
+   code                 VARCHAR(5),
+   classdate	DATE,
+   wages			INT,
+   
+   PRIMARY KEY (ssn, code, classdate),
+   FOREIGN KEY (ssn) REFERENCES staff (ssn),
+   FOREIGN KEY (code, classdate) REFERENCES offerings (code, classdate)
+)};
+
+\sqlexec_{INSERT INTO schedule VALUES(1111, 'hb1', '2016-01-08',100)};
+\sqlexec_{INSERT INTO schedule VALUES(5555, 'jp1', '2016-01-06',100)};
+\sqlexec_{INSERT INTO schedule VALUES(5555, 'jp1', '2016-01-15',100)};
+\sqlexec_{INSERT INTO schedule VALUES(5555, 'ln1', '2016-01-09',1000)};
+\sqlexec_{INSERT INTO schedule VALUES(7777, 'cs3', '2016-01-12',1000)};
+\sqlexec_{INSERT INTO schedule VALUES(7777, 'ln1', '2016-01-18',NULL)};
+
+

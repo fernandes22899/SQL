@@ -1,0 +1,19 @@
+1. 
+\project_{school,course,level,description}( \select_{level > 4} COURSES );
+
+
+2. 
+\project_{description}((\project_{description}COURSES \diff (\project_{description}\select_{COURSES.description like '%Pasta%'} COURSES)) \join STAFF );
+
+3.
+
+\project_{name1,name2}( (\rename_{name2}\project_{sname} STUDENTS) \cross ( ( (\project_{ssn} STUDENTS) \intersect (\project_{ssn} REGISTRATIONS) ) \join STUDENTS));
+
+
+4.
+\project_{code,classdate,location}( (\project_{code,location,classdate} OFFERINGS) \diff \project_{code,location,classdate}\select_{ location = location2 and classdate <> classdate2}( OFFERINGS \cross ( \rename_{code2,location2,classdate2} \project_{code,location,classdate} OFFERINGS ) ));
+
+
+5.
+\project_{code,location}( (\project_{code,location,classdate} OFFERINGS) \diff \project_{code,location,classdate}\select_{ location = location2 and classdate <> classdate2}( OFFERINGS \cross ( \rename_{code2,location2,classdate2} \project_{code,location,classdate} OFFERINGS ) ));
+

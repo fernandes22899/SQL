@@ -1,0 +1,11 @@
+\project_{SSN}( (\rename_{SSN} \project_{ssn} STUDENTS) \diff (\rename_{SSN} \project_{ssn} STAFF));
+
+\project_{SSN}( (\rename_{SSN} \project_{ssn} STUDENTS) \intersect (\rename_{SSN} \project_{ssn} STAFF));
+
+\project_{NAMES}( (\rename_{NAMES} \project_{sname} STUDENTS) \union (\rename_{NAMES} \project_{name} STAFF)); 
+
+\project_{code}( \select_{location='Berlin' and location='Dublin'} OFFERINGS);
+
+\project_{ssn,code}( \select_{balance > 200 and balance < 2000} REGISTRATIONS);
+
+\project_{code}( (\project_{code} OFFERINGS) \diff (\project_{code}(\select_{location='Berlin' or location='Dublin'} OFFERINGS)));

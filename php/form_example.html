@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+        <head>
+            <title>CS 775/875 - Sample Form Webpage</title>
+                <style type="text/css">
+                        body    {font-family:"Arial";}
+                </style>
+        </head>
+        <body>
+                <h1> Sample Webpage - Containing Forms </h1>
+                <p> This webpage is designed to give a brief overview of the HTML Forms. </p>
+                <form method="post" action="http://cs775.basalt.cs.unh.edu/php1/simple.php">
+                        <table border="1">
+                                <tr>
+                                        <td> Sample Text Box: </td>
+                                        <td> <input type="text" name="label" value="default" size="10" maxlength="10" /> </td>
+                                </tr>
+                                <tr>
+                                        <td> Radio Buttons: </td>
+                                        <td> <input type="radio" name="radioset" value="radiochoice1" checked="checked"/> Choice 1
+                                                 <input type="radio" name="radioset" value="radiochoice2" /> Choice 2
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td> Select Menu: </td>
+                                        <td> <select name="selectmenu">
+                                                        <option selected="selected" value="selectchoice1"> Choice 1 </option>
+                                                        <option value="selectchoice2"> Choice 2 </option>
+                                                        <option value="selectchoice3"> Choice 3 </option>
+                                                 </select>
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td> Text Area: </td>
+                                        <td> <textarea name="textarea" rows="10" cols="20"> Default text </textarea> </td>
+                                </tr>
+                                <tr>
+                                        <td> Check Boxes: </td>
+                                        <td> <input type="checkbox" name="boxset" value="check" checked="checked" /> Choice 
+                                        </td>
+                                </tr>
+                                <tr>
+                                        <td> Submit Button: </td>
+                                        <td> <input type="submit" value="Click to Submit Form" /> </td>
+                                </tr>
+                                <tr>
+                                        <td> Reset Button: </td>
+                                        <td> <input type="reset" value="Click to Reset Form" /> </td>
+                                </tr>
+                        </table>
+                </form>
+        </body>
+</html>

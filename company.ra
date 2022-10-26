@@ -1,0 +1,118 @@
+/*
+ * RA script used to create company database
+ */
+\sqlexec_{DROP TABLE IF EXISTS DEPARTMENT};
+\sqlexec_{DROP TABLE IF EXISTS EMPLOYEE};
+\sqlexec_{DROP TABLE IF EXISTS DEPT_LOCATIONS};
+\sqlexec_{DROP TABLE IF EXISTS PROJECT};
+\sqlexec_{DROP TABLE IF EXISTS WORKS_ON};
+\sqlexec_{DROP TABLE IF EXISTS DEPENDENT};
+
+\sqlexec_{
+CREATE TABLE DEPARTMENT
+(
+        Dname           VARCHAR(25) NOT NULL,
+        Dnumber         INTEGER NOT NULL PRIMARY KEY,
+        Mgr_ssn         CHAR(9) NOT NULL,
+        Mgr_start_DATE  DATE
+)};
+
+\sqlexec_{
+CREATE TABLE EMPLOYEE
+(
+        Fname           VARCHAR(15) NOT NULL,
+        Minit           VARCHAR(1),
+        Lname           VARCHAR(15) NOT NULL,
+        Ssn             CHAR(9) NOT NULL PRIMARY KEY,
+        BDATE           DATE,
+        Address         VARCHAR(50),
+        Sex             CHAR,
+        Salary          DECIMAL(10,2),
+        Super_ssn       CHAR(9) REFERENCES EMPLOYEE(Ssn),
+        Dno             INTEGER REFERENCES DEPARTMENT(Dnumber)
+)};
+
+\sqlexec_{
+CREATE TABLE PROJECT
+(
+        Pname           VARCHAR(25) NOT NULL,
+        Pnumber         INTEGER NOT NULL PRIMARY KEY,
+        Plocation       VARCHAR(15),
+        Dnum            INTEGER NOT NULL REFERENCES DEPARTMENT(Dnumber)
+)};
+
+\sqlexec_{
+CREATE TABLE DEPT_LOCATIONS
+(
+        Dnumber         INTEGER NOT NULL REFERENCES DEPARTMENT(Dnumber),
+        Dlocation       VARCHAR(15)
+)};
+
+\sqlexec_{
+CREATE TABLE DEPENDENT
+(
+        Essn            CHAR(9) NOT NULL REFERENCES EMPLOYEE(Ssn),
+        Dependent_name  VARCHAR(15),
+        Sex             CHAR,
+        BDATE           DATE,
+        Relationship    VARCHAR(8)
+)};
+
+\sqlexec_{
+CREATE TABLE WORKS_ON
+(
+        Essn            CHAR(9) NOT NULL REFERENCES EMPLOYEE(Ssn),
+        Pno             INTEGER NOT NULL REFERENCES PROJECT(Pnumber),
+        Hours           DECIMAL(4,1)
+)};
+
+\sqlexec_{INSERT INTO DEPARTMENT VALUES ('Research',5,'333445555','1988-05-22')};
+\sqlexec_{INSERT INTO DEPARTMENT VALUES ('Administration',4,'987654321','1995-01-01')};
+\sqlexec_{INSERT INTO DEPARTMENT VALUES('Headquarters',1,'888665555','1981-06-19')};
+
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Ahmad','V','Jabbar','987987987','1969-03-29','980 Dallas, Houston, TX','M','25000.00','987654321','4')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Joyce','A','English','453453453','1972-07-31','5631 Rice, Houston, TX','F','25000.00','333445555','5')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Ramesh','K','Narayan','666884444','1962-09-15','971 Fire Oak, Humble, TX','M','38000.00','333445555','5')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Alicia','J','Zelaya','999887777','1968-07-19','3321 Castle, Spring, TX','F','25000.00','987654321','4')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('John','B','Smith','123456789','1965-01-09','731 Fondren, Houston, TX','M','30000.00','333445555','5')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Jennifer','S','Wallace','987654321','1941-06-20','291 Berry, Bellaire, TX','F','43000.00','888665555','4')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('Franklin','T','Wong','333445555','1955-12-08','638 Voss, Houston, TX','M','40000.00','888665555','5')};
+\sqlexec_{INSERT INTO EMPLOYEE VALUES('James','E','Borg','888665555','1937-11-10','450 Stone, Houston, TX','M','55000.00',NULL,'1')};
+
+\sqlexec_{INSERT INTO PROJECT VALUES('ProductX','1','Bellaire','5')};
+\sqlexec_{INSERT INTO PROJECT VALUES('ProductY','2','Sugarland','5')};
+\sqlexec_{INSERT INTO PROJECT VALUES('ProductZ','3','Houston','5')};
+\sqlexec_{INSERT INTO PROJECT VALUES('Computerization','10','Stafford','4')};
+\sqlexec_{INSERT INTO PROJECT VALUES('Reorganization','20','Houston','1')};
+\sqlexec_{INSERT INTO PROJECT VALUES('Newbenefits','30','Stafford','4')};
+
+\sqlexec_{INSERT INTO DEPT_LOCATIONS VALUES("1","Houston")};
+\sqlexec_{INSERT INTO DEPT_LOCATIONS VALUES("4","Stafford")};
+\sqlexec_{INSERT INTO DEPT_LOCATIONS VALUES("5","Bellaire")};
+\sqlexec_{INSERT INTO DEPT_LOCATIONS VALUES("5","Houston")};
+\sqlexec_{INSERT INTO DEPT_LOCATIONS VALUES("5","Sugarland")};
+
+\sqlexec_{INSERT INTO DEPENDENT VALUES('333445555','Alice','F','1986-04-05','Daughter')};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('333445555',"Theodore","M","1983-10-25","Son")};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('333445555',"Joy","F","1958-05-03","Spouse")};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('987654321',"Abner","M","1942-02-29","Spouse")};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('123456789',"Michael","M","1988-01-01","Son")};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('123456789',"Alice","F","1988-12-31","Daughter")};
+\sqlexec_{INSERT INTO DEPENDENT VALUES('123456789',"Elizabeth","F","1967-05-05","Spouse")};
+
+\sqlexec_{INSERT INTO WORKS_ON VALUES("123456789","1","32.5")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('123456789',"2","7.5")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('666884444',"3","40.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('453453453',"1","20.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('453453453',"2","20.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('333445555',"2","10.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('333445555',"3","10.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('333445555',"10","10.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('333445555',"20","10.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('999887777',"30","30.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('999887777',"10","10.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('987987987',"10","35.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('987987987',"30","5.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('987654321',"30","20.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('987654321',"20","15.0")};
+\sqlexec_{INSERT INTO WORKS_ON VALUES('888665555',"20",NULL)};

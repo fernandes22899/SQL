@@ -1,0 +1,47 @@
+1. Make a table with ascending names, make another for ascending job titles, then join them
+
+SELECT name,job 
+FROM staff 
+ORDER BY job ASC, name;
+
+2.  
+SELECT ssn
+FROM staff NATURAL JOIN students
+WHERE job='chef' AND EXISTS
+
+
+3.
+SELECT school,course,level,classdate
+FROM courses NATURAL JOIN offerings
+WHERE code NOT IN
+( SELECT code
+  FROM registrations);
+
+4.
+SELECT name
+FROM staff CROSS JOIN schedule
+WHERE code NOT IN
+(SELECT code
+FROM courses
+WHERE description LIKE '%Pasta%');
+
+
+5.
+
+SELECT sname,ssn
+FROM students
+WHERE ssn NOT IN
+( SELECT ssn 
+FROM registrations NATURAL JOIN offerings
+WHERE location = 'Berlin' OR location = 'Naples');
+
+6.
+SELECT ssn,sname
+FROM students 
+WHERE ssn NOT IN
+( SELECT r1.ssn
+  FROM registrations r1, registrations r2
+  WHERE r1.ssn = r2.ssn AND ( r1.code <> r2.code OR r1.classdate <> r2.classdate)
+  );
+
+SELECT ssn,sname FROM students WHERE EXISTS( SELECT ssn FROM students,registrations WHERE ssn <> ssn );

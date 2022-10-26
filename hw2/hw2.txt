@@ -1,0 +1,19 @@
+1.
+\project_{sname} (((\project_{ssn} STUDENTS) \diff (\project_{ssn} REGISTRATIONS)) \join STUDENTS);
+
+2. 
+\project_{sname}(( ( (\project_{ssn} STUDENTS) \intersect (\project_{ssn} STAFF) ) \diff (\project_{ssn} REGISTRATIONS)) \join STUDENTS);
+
+3. 
+\project_{sname} (((\project_{ssn} STUDENTS) \intersect (\project_{ssn}\select_{code = 'fc1' and classdate = '2015-11-19'} REGISTRATIONS)) \join STUDENTS);
+
+4.
+\project_{ssn}(((\project_{ssn,code} REGISTRATIONS) \intersect (\project_{ssn,code} SCHEDULE)) \join (\select_{job='chef'} STAFF) );  
+NEW
+\project_{ssn}\select_{classdate <> CLASSDATE}(((\project_{ssn,code,classdate} REGISTRATIONS) \cross (\rename_{SSN,CODE,CLASSDATE}\project_{ssn,code,classdate} SCHEDULE)) \join (\select_{job='chef'} STAFF) );  
+
+5.
+\project_{code}\select_{code = code2 and location <> location2}( OFFERINGS \cross ( \rename_{code2,location2} \project_{code,location} OFFERINGS ) );
+
+6.
+\project_{balance}(\project_{balance,BALANCE}\select_{balance > BALANCE}((\project_{balance} REGISTRATIONS) \cross (\rename_{BALANCE}\project_{balance} REGISTRATIONS)));

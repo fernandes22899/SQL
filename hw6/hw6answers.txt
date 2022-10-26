@@ -1,0 +1,58 @@
+1.
+SELECT ssn,school,count(*)
+FROM registrations r
+LEFT JOIN courses c
+ON r.code = c.code
+GROUP BY ssn
+HAVING count(school) > 3;
+
+2.
+SELECT r.ssn,name,sum(credits) credits
+FROM registrations r
+LEFT JOIN courses c
+ON r.code = c.code
+NATURAL JOIN students
+WHERE r.ssn IN
+(SELECT ssn
+FROM students
+WHERE ssn NOT IN
+(SELECT ssn
+FROM staff))
+GROUP BY r.ssn;
+
+3.
+SELECT s.name, max(s.maximumwage) maximumwage
+FROM(
+SELECT name, sum(wages) AS maximumwage
+FROM staff
+NATURAL JOIN schedule
+GROUP BY name) s;
+
+4.
+SELECT school,name,r.ssn,sum(balance) totalbalance
+FROM courses c
+JOIN registrations r
+ON c.code = r.code
+NATURAL JOIN students
+GROUP BY name
+HAVING sum(balance) > 0
+ORDER BY school ASC, totalbalance DESC;
+
+5.
+SELECT s.ssn,name, if(sum(balance) = 0, NULL,sum(balance))  totalbalance
+FROM students s
+LEFT JOIN registrations r
+ON s.ssn = r.ssn
+GROUP BY s.ssn;
+
+
+6.
+SELECT s.ssn,name, sum(credits+totalcredits) totalcredits
+FROM courses c
+LEFT JOIN registrations r
+ON c.code = r.code
+NATURAL JOIN students s
+WHERE s.ssn NOT IN
+(SELECT ssn
+FROM staff)
+GROUP BY s.ssn;

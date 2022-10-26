@@ -1,0 +1,7 @@
+http://jjf1027.basalt.cs.unh.edu/php1/form_example.html
+http://jjf1027.basalt.cs.unh.edu/php1/simple_page_withCSS.html
+http://jjf1027.basalt.cs.unh.edu/php2/processform.php
+http://jjf1027.basalt.cs.unh.edu/php2/database.php
+http://jjf1027.basalt.cs.unh.edu/php2/simple.php
+
+SELECT Pname,p.Pnumber,Plocation,Essn FROM PROJECT p JOIN (SELECT Essn,Pno AS Pnumber FROM WORKS_ON) e ON p.Pnumber = e.Pnumber;

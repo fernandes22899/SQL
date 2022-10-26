@@ -1,0 +1,19 @@
+{
+  "logger": {
+    "title": "Remote Sync"
+  },
+  "uploadOnSave": true,
+  "useAtomicWrites": false,
+  "deleteLocal": false,
+  "hostname": "basalt.cs.unh.edu",
+  "port": "22",
+  "target": "public_html/hw7",
+  "ignore": [
+    ".remote-sync.json",
+    ".git/**"
+  ],
+  "username": "jjf1027",
+  "password": "biloked",
+  "watch": [],
+  "transport": "scp"
+}
